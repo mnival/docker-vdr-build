@@ -2,7 +2,7 @@ Environment used to compile VDR plugins
 
 Create the image:
 ```
-git clone https://github.
+git clone https://github.com/mnival/docker-vdr-build.git
 cd docker-vdr-build
 docker build . -t vdr-build
 ```
@@ -18,15 +18,15 @@ mkdir /usr/local/src/plugins/${PLUGIN}
 cd /usr/local/src/plugins/${PLUGIN}
 git clone https://github.com/rofafor/vdr-plugin-femon.git vdr-plugin-${PLUGIN}
 cd vdr-plugin-${PLUGIN}
-COMMIT_ID="$(git show -s --format=%h)"
+DATE_COMMIT=$(git show -s --format=%ad --date=format:'%Y%m%d~%H%M%S')
 VERSION="$(git tag | tail -n 1 | sed 's/^v//g')"
 cd ..
-mv vdr-plugin-${PLUGIN} vdr-plugin-${PLUGIN}-${VERSION}~${COMMIT_ID}
-tar --exclude='*/.git*' -czf vdr-plugin-${PLUGIN}-${VERSION}~${COMMIT_ID}.tar.gz vdr-plugin-${PLUGIN}-${VERSION}~${COMMIT_ID}
-cd vdr-plugin-${PLUGIN}-${VERSION}~${COMMIT_ID}
+mv vdr-plugin-${PLUGIN} vdr-plugin-${PLUGIN}-${VERSION}~${DATE_COMMIT}
+tar --exclude='*/.git*' -czf vdr-plugin-${PLUGIN}-${VERSION}~${DATE_COMMIT}.tar.gz vdr-plugin-${PLUGIN}-${VERSION}~${DATE_COMMIT}
+cd vdr-plugin-${PLUGIN}-${VERSION}~${DATE_COMMIT}
 debianize-vdrplugin
-mv ../vdr-plugin-${PLUGIN}_${VERSION}~${COMMIT_ID}.orig.tar.gz ../vdr-plugin-${PLUGIN}_${VERSION}.orig.tar.gz
-dch -v ${VERSION}-${VERSION_PACKAGE}~${COMMIT_ID} "version: ${VERSION}-${VERSION_PACKAGE}~${COMMIT_ID}"
+mv ../vdr-plugin-${PLUGIN}_${VERSION}~${DATE_COMMIT}.orig.tar.gz ../vdr-plugin-${PLUGIN}_${VERSION}.orig.tar.gz
+dch -v ${VERSION}-${VERSION_PACKAGE}~${DATE_COMMIT} "version: ${VERSION}-${VERSION_PACKAGE}~${DATE_COMMIT}"
 dpkg-buildpackage -us -uc
 exit
 ```

@@ -30,7 +30,7 @@ RUN set -ex; \
   cp -pr ../vdr*/debian/ .; \
   printf "vdr-abi-${VERSION}-debian\n" > debian/abi-version; \
   sed -i '/skincurses-log-errors.patch/d; /allow-verbose-libsi-build.patch/d; /configurable-pkg-config.patch/d; /glibc-stime.patch/d;' debian/patches/series; \
-  sed -i 's?skincurses.c .*Exp?skincurses.c 4.6 2020/05/11 10:23:15 kls Exp?' debian/patches/99_ncursesw-include.patch; \
+  sed -i 's?skincurses.c .*Exp?skincurses.c 5.1 2021/07/01 15:40:46 kls Exp?' debian/patches/99_ncursesw-include.patch; \
   printf "12\n" > debian/plugin-template/compat; \
   sed -i 's/#BUILD_DEPS#, //g' debian/plugin-template/control; \
   > debian/plugin-template/install; \

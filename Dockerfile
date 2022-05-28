@@ -1,5 +1,7 @@
 FROM debian:unstable-slim
 
+ENV LANG C.UTF-8
+
 RUN set -ex; \
   printf "deb http://deb.debian.org/debian unstable main\ndeb-src http://deb.debian.org/debian unstable main\n" > /etc/apt/sources.list; \
   apt update; \
